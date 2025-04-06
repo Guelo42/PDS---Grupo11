@@ -4,5 +4,3 @@ Integrantes del grupo:
     -Cabeza, Miguel Augusto
     -Matienzo, Lucca Nicolás
     -Villafañe Gomez, María de los Angeles
-
-El repositorio contendra una rama por cada tp o laboratorio distinto
