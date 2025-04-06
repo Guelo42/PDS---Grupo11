@@ -38,5 +38,6 @@ build/
 Thumbs.db
 
 # Ignorar WAV y NPZ en lab1
+lab1/datos
 lab1/*.wav
 lab1/*.npz
