@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.io import wavfile
 
-carpeta = "lab1/datos"  #Carpeta donde se guardan los archivos .wav y .npz
+carpeta = "datos"  #Carpeta donde se guardan los archivos .wav y .npz
 
 ### ------------------------ ACTIVIDAD 1 ----------------------------------
 
@@ -41,8 +41,8 @@ def graph(n, signal, nombre):
     plt.xlabel("n")
     plt.ylabel(f"{nombre}[n]")
     plt.grid(True)
+    plt.savefig(f"{nombre}.png")
     plt.show()
-    ##plt.savefig(f"{nombre}.png")
     plt.close()
 
 
