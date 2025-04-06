@@ -1,0 +1,42 @@
+# Bytecode de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Entornos virtuales
+venv/
+env/
+.venv/
+.env/
+
+# Archivos de configuración de entorno
+.env
+*.env
+
+# Archivos de logs
+*.log
+
+# Archivos de bases de datos o binarios
+*.sqlite3
+*.db
+
+# Archivos temporales
+*.tmp
+*.swp
+*.bak
+
+# Archivos de Jupyter
+.ipynb_checkpoints/
+
+# Carpetas creadas por herramientas
+dist/
+build/
+*.egg-info/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar WAV y NPZ en lab1
+lab1/*.wav
+lab1/*.npz
