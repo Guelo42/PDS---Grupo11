@@ -13,7 +13,9 @@ Por ejemplo, si se quiere analizar la vocal "A". Se escribe "A" en la variable v
 # Definir la vocal (cambiar aquí para procesar otra vocal)
 vocal = "A"  # Cambia a "A", "E", "I", "O", "U" según sea necesario
 
+
 carpeta = "datos/muestrasMiguel"  # Cambia a la carpeta donde están los archivos .wav
+
 # Rutas de los archivos basadas en la vocal
 wav_file_path = f"{carpeta}/{vocal}.wav"
 txt_file_path = f"{carpeta}/{vocal}.txt"

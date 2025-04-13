@@ -9,7 +9,9 @@ Mostrara un grafico con la forma de onda de la señal y otro grafico con la FFT 
 """
 vocal = "U"  # Cambia a "A", "E", "I", "O", "U" según sea necesario
 
+
 carpeta = "datos/muestrasMiguel"
+
 # Ruta del archivo ASCII (archivo generado previamente)
 file_path = rf"{carpeta}/{vocal}.txt"
 # Cargar los datos del archivo, ignorando la primera fila
