@@ -47,28 +47,20 @@ def graph(n, signal, nombre):
 
 
 signals = [
-    senSignal(40, -20, 120, 1000, 0),
-    senSignal(40, -20, 120, 1200, 0),
-    senSignal(40, -20, 120, 1300, 0),
-    senSignal(60, -20, 120, 1000, np.pi/2),
-    senSignal(60, -20, 120, 1200, np.pi/2),
-    senSignal(1040, -20, 120, 1000, 0),
+    senSignal(40, -20, 1000, 1000, 0),
+    senSignal(40, -20, 1000, 1200, 0),
+    senSignal(40, -20, 1000, 1300, 0),
+    senSignal(60, -20, 1000, 1000, np.pi/2),
+    senSignal(60, -20, 1000, 1200, np.pi/2),
+    senSignal(1040, -20, 1000, 1000, 0),
 ]
 
 signals.append(signals[1] + signals[4]) #Señal x7 = x1 + x4
 signals.append(signals[2] + signals[5]) #Señal x8 = x2 + x5
 
-signals = [
-    senSignal(40, -20, 120, 1000, 0),
-    senSignal(40, -20, 120, 1200, 0),
-    senSignal(40, -20, 120, 1300, 0),
-    senSignal(60, -20, 120, 1000, np.pi/2),
-    senSignal(60, -20, 120, 1200, np.pi/2),
-    senSignal(1040, -20, 120, 1000, 0),
-]
 
 fs_values = [1000, 1200, 1300, 1000, 1200, 1000]
-eps_values = [0, 0, 0.1, 0.2, 0, 0, 0, 0, 0]    #Si pongo eps4 en 0, el calculo del periodo da 50n porque el periodo no es multiplo del tiempo de muestreo.
+eps_values = [0, 0, 0.1, 0.2, 0, 0, 0, 0, 0.1]    #Si pongo eps4 en 0, el calculo del periodo da 50n porque el periodo no es multiplo del tiempo de muestreo.
 #Si pongo eps3 en 0 no se detecta periodicidad por el mismo motivo
 
 signals.append(signals[1] + signals[4])  # Señal x7 = x1 + x4
@@ -84,6 +76,6 @@ for i, (signal, fs, eps) in enumerate(zip(signals, fs_values, eps_values), start
     else:
         print(f"x{i} no es periodica")
 
-    graph(np.arange(-20, 100), signal, f"x{i}")
-    saveSignal(f"x{i}", signal, fs, np.arange(-20, 100))
+    #graph(np.arange(-20, 100), signal, f"x{i}")
+    #saveSignal(f"x{i}", signal, fs, np.arange(-20, 100))
 
