@@ -39,6 +39,7 @@ T7, value = esPeriodica(x[7], 0)
 x[7] = x[7][:T7] #Limito el numero de muestras a un solo periodo (50 muestras)
 print(f"Señal x7: Periodo = {T7}, Valor = {value}")
 
+
 plt.figure(figsize=(10, 6))  # Cambia los valores de ancho y alto según sea necesario
 plt.subplot(2, 2, 1)  # Cambia la posición del subplot según sea necesario
 plt.stem(x[7])  # Reemplaza x[7] con la señal que desees graficar
@@ -51,6 +52,7 @@ plt.grid(True)
 T8, value = esPeriodica(x[8], 0)
 x[8] = x[8][:T8] #Limito el numero de muestras a un solo periodo (60 muestras)
 print(f"Señal x8: Periodo = {T8}, Valor = {value}")
+
 
 plt.subplot(2, 2, 2)  # Cambia la posición del subplot según sea necesario
 plt.stem(x[8])  # Reemplaza x[7] con la señal que desees graficar
@@ -172,6 +174,7 @@ F_x7 = F_x7[:(T7) // 2]
 fft_x7 = np.abs(fft_x7[:T7 // 2])
 fft_x7 = fft_x7 * 2 /(T7)  # Normalizar la FFT
 
+
 plt.figure()
 plt.suptitle('Análisis de la Señal x7 y su Espectro de Frecuencia igualando a 0 muestras impares', fontsize=12)
 
@@ -195,6 +198,7 @@ plt.yticks(np.arange(0, 0.6, 0.1))  # desde 0 hasta 0.5 en pasos de 0.1
 plt.tight_layout()  # Ajusta el espaciado entre subgráficas
 #plt.show()
 
+
 #-------------------Actividad 4-------------------
 
 x[7] = x[1] + x[4]  # Señal x7 = x1 + x4
@@ -205,10 +209,10 @@ x10 = x10[:T7]
 x11 = x7[1::2] #X10 tiene las muestras impares de x7
 x11 = x11[:T7]
 
-# Calcular la FFT de la señal x9
+# Calcular la FFT de la señal x10
 fft_x10 = np.fft.fft(x10)
 
-# Calcular la FFT de la señal x9
+# Calcular la FFT de la señal x11
 fft_x11 = np.fft.fft(x11)
 
 N = T7 #Periodo fundamental de x7 en numero de muestras
@@ -244,6 +248,201 @@ plt.ylabel('Amplitud')
 plt.grid(True)
 plt.tight_layout()  # Ajusta el espaciado entre subgráficas
 plt.show()
+
+#-------------------Actividad 5-------------------
+
+#Implementacion de funciones
+
+def y1(x, N):
+    y = []
+    for n in N:
+        y.append(0)
+        y[n] += 7.29 * x[n]
+        if n-1 >= 0:
+            y[n] -= 8.29 * x[n-1]
+        if n-2 >= 0:
+            y[n] -= 4.01 * x[n-2]
+        if n-3 >= 0:
+            y[n] += 5.83 * x[n-3]
+    return y
+
+def y2(x, N):
+
+    y = []
+    for n in N:
+        y.append(0)
+        y[n] += 1.00025 * x[n]
+        if n-1 >= 0:
+            y[n] -= 1.86001 * x[n-1]
+            y[n] += 1.80113 * y[n-1]
+        if n-2 >= 0:
+            y[n] += 1.00025 * x[n-2]
+            y[n] -= 0.93816 * y[n-2]
+
+    return y
+
+x7 = x[1] + x[4] #Señal x7 = x1 + x4
+N = np.arange(0,len(x7))
+
+out1 = y1(x7,N)
+out2 = y2(x7,N)
+
+plt.figure()
+plt.subplot(2,2,1)
+plt.plot(N, x7)
+plt.title('Entrada x7')
+plt.xlabel('n')
+plt.ylabel('Amplitud')
+plt.grid(True)
+
+plt.subplot(2,2,2)
+plt.plot(N, out1)
+plt.title('Salida y1')
+plt.xlabel('n')
+plt.ylabel('Amplitud')
+plt.grid(True)
+
+
+plt.subplot(2,2,3)
+plt.plot(N, out2)
+plt.title('Salida y2')
+plt.xlabel('n')
+plt.ylabel('Amplitud')
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
+
+
+#iii)
+
+T_y1, value = esPeriodica(out1, 0)
+print(f"Señal salida1: Periodo = {T_y1}, Valor = {value}")
+T_y2, value = esPeriodica(out2, 0)
+print(f"Señal salida2: Periodo = {T_y2}, Valor = {value}")
+
+
+#iv) Redefino las señales de entrada
+
+x = [
+    0,
+    senSignal(40, -20, 120, 1000, 0),
+    senSignal(40, -20, 120, 1200, 0),
+    senSignal(40, -20, 120, 1300, 0),
+    senSignal(60, -20, 120, 1000, np.pi/2),
+    senSignal(60, -20, 120, 1200, np.pi/2),
+    senSignal(1040, -20, 120, 1000, 0),
+]
+
+x7 = x[1] + x[4] #Señal x7 = x1 + x4
+
+out1 = y1(x7,range(len(x7)))
+out2 = y2(x7,range(len(x7)))
+
+out1 = out1[4:117]
+out2 = out2[4:117] #Considero el intervalo -18 <= n <= 96
+
+plt.figure()
+plt.subplot(2,2,1)
+plt.plot(N, x7)
+plt.title('Entrada x7')
+plt.xlabel('n')
+plt.ylabel('Amplitud')
+plt.grid(True)
+
+N = np.arange(-16, 97) #Intervalo -18 <= n <= 96
+
+plt.subplot(2,2,2)
+plt.plot(N, out1)
+plt.title('Salida y1')
+plt.xlabel('n')
+plt.ylabel('Amplitud')
+plt.grid(True)
+
+
+plt.subplot(2,2,3)
+plt.plot(N, out2)
+plt.title('Salida y2')
+plt.xlabel('n')
+plt.ylabel('Amplitud')
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
+
+
+print("\nConsiderando el intervalo -18 <= n <= 96:")
+T_y1, value = esPeriodica(out1, 0.001)
+print(f"Señal salida1: Periodo = {T_y1}, Valor = {value}")
+T_y2, value = esPeriodica(out2, 0.1)
+print(f"Señal salida2: Periodo = {T_y2}, Valor = {value}")
+
+out1 = y1(x[1],range(len(x[1])))
+out2 = y2(x[4],range(len(x[4])))
+out3 = []
+for i in range(len(x[1])):
+    out3.append(out1[i] + out2[i])
+
+out4 = y1(x[1]+x[4], range(len(x[1])))
+
+## Verificacion de linealidad del sistema 1
+N = np.arange(-20, 100)
+plt.figure()
+plt.subplot(2,2,1)
+plt.plot(N, x[1])
+plt.title('Entrada x1')
+plt.xlabel('n')
+plt.ylabel('Amplitud')
+plt.grid(True)
+
+
+plt.subplot(2,2,2)
+plt.plot(N, out1)
+plt.title('salida y1(x1)')
+plt.xlabel('n')
+plt.ylabel('Amplitud')
+plt.grid(True)
+
+
+plt.subplot(2,2,3)
+plt.plot(N, x[4])
+plt.title('Entrada x4')
+plt.xlabel('n')
+plt.ylabel('Amplitud')
+plt.grid(True)
+
+
+plt.subplot(2,2,4)
+plt.plot(N, out2)
+plt.title('salida y1(x4)')
+plt.xlabel('n')
+plt.ylabel('Amplitud')
+plt.grid(True)
+
+
+plt.tight_layout()
+
+
+plt.figure()
+plt.subplot(2,1,1)
+plt.plot(N,out3)
+plt.ylim(-5, 5)  # Establece el rango del eje vertical de -5 a 5
+plt.title('salida y1(x4) + y1(x1)')
+plt.xlabel('n')
+plt.ylabel('Amplitud')
+plt.grid(True)
+
+plt.subplot(2,1,2)
+plt.plot(N, out4)
+plt.ylim(-5, 5)  # Establece el rango del eje vertical de -5 a 5
+plt.title('salida y1(x4 + x1)')
+plt.xlabel('n')
+plt.ylabel('Amplitud')
+
+plt.tight_layout()
+plt.grid(True)
+plt.show()
+
 
 
 
